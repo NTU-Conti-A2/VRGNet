@@ -1,0 +1,21 @@
+version: "3.8"
+services:
+  VRGNET:
+    image: phatli/vrgnet
+    stdin_open: true
+    tty: true
+    ipc: host
+    user: "${UID}:${GID}"
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
+    volumes:
+      - type: bind
+        source: ./
+        target: /home/user/vrgnet
+    dns:
+      - 8.8.8.8
